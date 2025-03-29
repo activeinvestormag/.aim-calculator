@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const currentAllocation = parseFloat(currentAllocationInput.value);
                 const latestVolatility = data[selectedTicker];
 
-                if (isNaN(targetVolatility) || isNaN(currentAllocation) || isNaN(latestVolatility)) {
-                    adjustedAllocationParagraph.textContent = "Invalid input. Please enter numbers.";
+                if (isNaN(targetVolatility) || isNaN(currentAllocation) || isNaN(latestVolatility) || !selectedTicker) { // Added !selectedTicker check
+                    adjustedAllocationParagraph.textContent = "Invalid input. Please enter numbers and select a ticker.";
                     return;
                 }
 
