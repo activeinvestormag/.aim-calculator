@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.text())
         .then(csv => {
             const lines = csv.split('\n');
-            const headers = lines[0].split(',');
-            const etfTickers = headers.slice(1); // Exclude the 'Date' column
+            const firstLine = lines[0].split(','); // Get the first line
+            const etfTickers = firstLine.slice(1); // Exclude the 'Date' column
 
             // Populate the ticker symbol dropdown
             etfTickers.forEach(ticker => {
@@ -35,9 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 tickerSymbolSelect.appendChild(option);
             });
 
-            // Parse the CSV data into an object
+            // Parse the CSV data into an object (using the *last* line for values)
             const lastLine = lines[lines.length - 1].split(',');
-            data = headers.reduce((obj, header, index) => {
+            data = firstLine.reduce((obj, header, index) => { // Use firstLine for headers
                 obj[header.trim()] = parseFloat(lastLine[index].trim()); // Parse values as floats
                 return obj;
             }, {});
